@@ -37,7 +37,7 @@ namespace Treinando
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddDbContext<TreinandoContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("TreinandoContext")));
+                    options.UseMySql(Configuration.GetConnectionString("TreinandoContext"),builder => builder.MigrationsAssembly("Treinando")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
