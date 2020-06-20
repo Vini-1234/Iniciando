@@ -15,5 +15,7 @@ namespace Treinando.Data
         }
 
         public DbSet<Treinando.Models.Client> Client { get; set; }
+
+        public DbSet<Treinando.Models.Company> Company { get; set; }
     }
 }

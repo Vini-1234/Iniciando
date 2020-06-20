@@ -7,16 +7,21 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Treinando.Data;
 using Treinando.Models;
+using Treinando.Services;
 
 namespace Treinando.Controllers
 {
     public class ClientsController : Controller
     {
         private readonly TreinandoContext _context;
+        private readonly CompanyService _companyService;
+        private readonly ClientService _clientService;
 
-        public ClientsController(TreinandoContext context)
+        public ClientsController(TreinandoContext context, CompanyService companyService, ClientService clientService)
         {
             _context = context;
+            _companyService = companyService;
+            _clientService = clientService;
         }
 
         // GET: Clients
@@ -54,12 +59,11 @@ namespace Treinando.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Email")] Client client)
+        public IActionResult Create(Client client)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(client);
-                await _context.SaveChangesAsync();
+                _clientService.Insert(client);
                 return RedirectToAction(nameof(Index));
             }
             return View(client);

@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Treinando.Data;
+using Treinando.Services;
 
 namespace Treinando
 {
@@ -38,6 +39,9 @@ namespace Treinando
 
             services.AddDbContext<TreinandoContext>(options =>
                     options.UseMySql(Configuration.GetConnectionString("TreinandoContext"),builder => builder.MigrationsAssembly("Treinando")));
+
+            services.AddScoped<CompanyService>();
+            services.AddScoped<ClientService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
